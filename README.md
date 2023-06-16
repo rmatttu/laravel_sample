@@ -129,3 +129,12 @@ commit.
 warning: CRLF will be replaced by LF in public/vendor/laravel-admin/bootstrap-fileinput/css/fileinput.min.css.
 The file will have its original line endings in your working directory
 ```
+
+## create model
+
+```bash
+# php artisan make:migration create_images_table
+# php artisan make:seeder images_seeder
+
+php artisan make:model Image --migration
+php artisan admin:make ImageController --model='\App\Models\Image'
