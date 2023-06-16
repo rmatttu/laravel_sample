@@ -26,7 +26,14 @@ class ImageController extends AdminController
     {
         $grid = new Grid(new Image());
 
+        $grid->column('id', __('Id'));
+        $grid->column('path', __('Path'));
+        $grid->column('created_at', __('Created at'));
+        $grid->column('updated_at', __('Updated at'));
 
+        $grid->column('picture', __('Picture'))->display(function ($path) {
+            return "<img src='{$path}' width='100px'>";
+        });
 
         return $grid;
     }
@@ -55,6 +62,7 @@ class ImageController extends AdminController
     {
         $form = new Form(new Image());
 
+        $form->image('path', 'path');
 
 
         return $form;

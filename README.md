@@ -138,3 +138,13 @@ The file will have its original line endings in your working directory
 
 php artisan make:model Image --migration
 php artisan admin:make ImageController --model='\App\Models\Image'
+
+php artisan storage:link
+```
+
+
+## Image upload
+
+- `config/filesystems.php`を確認、`public`にすれば良さそう
+- `config/admin.php`を確認、`upload.disk`を`public`へ変更
+- 画像をアップロードしてみる
