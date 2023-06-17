@@ -149,10 +149,22 @@ php artisan make:model ImageTag --migration
 php artisan admin:make ImageTagController --model='\App\Models\ImageTag'
 
 php artisan storage:link
+```
 
+## Database
+
+```bash
 php artisan migrate
 php artisan migrate:rollback --step=1
+```
 
+## Crear cache
+
+```bash
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
 ```
 
 
