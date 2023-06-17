@@ -13,6 +13,9 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
+        Schema::table('images', function (Blueprint $table) {
+            $table->addColumn('integer', 'category_id')->nullable()->default(0);
+        });
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->text('name');
@@ -27,6 +30,9 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
+        Schema::table('images', function (Blueprint $table) {
+            $table->dropColumn('category_id');
+        });
         Schema::dropIfExists('categories');
     }
 }

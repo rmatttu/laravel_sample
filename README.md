@@ -139,7 +139,20 @@ The file will have its original line endings in your working directory
 php artisan make:model Image --migration
 php artisan admin:make ImageController --model='\App\Models\Image'
 
+php artisan make:model Category --migration
+php artisan admin:make CategoryController --model='\App\Models\Category'
+
+php artisan make:model Tag --migration
+php artisan admin:make TagController --model='\App\Models\Tag'
+
+php artisan make:model ImageTag --migration
+php artisan admin:make ImageTagController --model='\App\Models\ImageTag'
+
 php artisan storage:link
+
+php artisan migrate
+php artisan migrate:rollback --step=1
+
 ```
 
 
