@@ -7,6 +7,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use \App\Models\Image;
+use \App\Models\Tag;
 
 class ImageController extends AdminController
 {
@@ -30,9 +31,12 @@ class ImageController extends AdminController
         $grid->column('path', __('Path'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
+        $grid->tags()->display(function ($tags) {
+            $tags = array_map(function ($tag) {
+                return "<span class='label label-success'>{$tag['name']}</span>";
+            }, $tags);
 
-        $grid->column('picture', __('Picture'))->display(function ($path) {
-            return "<img src='{$path}' width='100px'>";
+            return join('&nbsp;', $tags);
         });
 
         return $grid;
@@ -47,9 +51,10 @@ class ImageController extends AdminController
     protected function detail($id)
     {
         $show = new Show(Image::findOrFail($id));
-
-
-
+        $show->field('id', __('Id'));
+        $show->field('created_at', __('Created at'));
+        $show->field('updated_at', __('Updated at'));
+        $show->path()->image();
         return $show;
     }
 
@@ -62,8 +67,8 @@ class ImageController extends AdminController
     {
         $form = new Form(new Image());
 
-        $form->image('path', 'path');
-
+        $form->image('path', 'path')->uniqueName();
+        $form->multipleSelect('tags', 'tag')->options((Tag::all()->pluck('name', 'id')));
 
         return $form;
     }

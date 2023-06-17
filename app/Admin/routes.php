@@ -14,5 +14,6 @@ Route::group([
     $router->get('/', 'HomeController@index')->name('home');
     $router->resource('images', ImageController::class);
     $router->resource('categories', CategoryController::class);
+    $router->resource('tags', TagController::class);
 
 });
