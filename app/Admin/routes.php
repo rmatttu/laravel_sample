@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Routing\Router;
+use App\Http\Controllers\Api\TagApiController;
 
 Admin::routes();
 
@@ -16,4 +17,5 @@ Route::group([
     $router->resource('categories', CategoryController::class);
     $router->resource('tags', TagController::class);
 
+    $router->get('/api/tags', [TagApiController::class, 'getTags']);
 });

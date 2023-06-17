@@ -66,10 +66,8 @@ class ImageController extends AdminController
     protected function form()
     {
         $form = new Form(new Image());
-
         $form->image('path', 'path')->uniqueName();
-        $form->multipleSelect('tags', 'tag')->options((Tag::all()->pluck('name', 'id')));
-
+        $form->multipleSelect('tags', 'tag')->options()->ajax('/admin/api/tags');
         return $form;
     }
 }
