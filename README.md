@@ -4,6 +4,16 @@ Laravel sample project.
 
 ## Usage
 
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+- See http://localhost
+- Login laravel-admin http://localhost/admin/auth/login
+  - ID: admin
+  - PW: admin
+
 ## Requirements
 
 - PHP 7.4.33
