@@ -5,89 +5,55 @@ Laravel sample project.
 ## Usage
 
 ```bash
+mkdir workspace
+cd workspace
+git clone https://github.com/rmatttu/laravel_sample.git
+git clone https://github.com/Laradock/laradock.git
+
+cd laravel_sample
 cp .env.example .env
+cp laradock.env.example ../laradock/.env
+
+cd ../laradock
+docker compose up -d nginx postgres redis workspace
+docker compose exec --user=laradock workspace bash
+
+composer install
+php artisan vendor:publish --provider="Encore\Admin\AdminServiceProvider"
 php artisan key:generate
+
+exit
 ```
+
 
 - See http://localhost
 - Login laravel-admin http://localhost/admin/auth/login
   - ID: admin
   - PW: admin
 
-## Requirements
 
-- PHP 7.4.33
-- Laravel version	8.83.27
-- laravel-admin 1.8.17
+## `.env` diff
 
-## Installation
-
-Install laradock.
-
-```bash
-mkdir -p ~/workspace
-cd ~/workspace
-git clone https://github.com/Laradock/laradock.git
-cd laradock
-```
-
-Launch laradock.
-
-```bash
-cp .env.example .env
-
-docker compose up -d workspace
-docker compose exec --user=laradock workspace bash
-```
-
-Enter workspace instance.
-
-```bash
-composer create-project laravel/laravel laravel_sample
-exit
-```
-
-Change `.env`
-
-```bash
-vim .env
-# edit...
-diff -U0 .env.example .env
-```
+### laradock
 
 ```diff
-+++ .env        2023-06-10 08:57:53.209693000 +0900
-@@ -8 +9 @@
+--- .env.example        2023-06-10 14:46:19.079972000 +0900
++++ .env        2023-10-22 15:34:46.932037000 +0900
+@@ -8 +8 @@
 -APP_CODE_PATH_HOST=../
 +APP_CODE_PATH_HOST=../laravel_sample
-@@ -223 +224,2 @@
+@@ -17 +17 @@
+-DATA_PATH_HOST=~/.laradock/data
++DATA_PATH_HOST=./laradock/data
+@@ -223 +223 @@
 -PHP_FPM_INSTALL_MYSQLI=true
-+PHP_FPM_INSTALL_MYSQLI=falsae
-@@ -253 +255,2 @@
++PHP_FPM_INSTALL_MYSQLI=false
+@@ -253 +253 @@
 -PHP_FPM_INSTALL_PGSQL=false
 +PHP_FPM_INSTALL_PGSQL=true
 ```
 
-Relaunch.
-
-```bash
-docker compose down
-docker compose up -d nginx postgres redis workspace
-```
-
-Install laravel-admin.
-
-```bash
-docker compose exec --user=laradock workspace bash
-composer require encore/laravel-admin
-```
-
-```bash
-vim .env
-# edit...
-
-diff -U0 .env.example .env
-```
+### `laravel_sample`
 
 ```diff
 --- .env.example        2022-04-12 13:37:49.000000000 +0000
@@ -110,20 +76,11 @@ diff -U0 .env.example .env
 +DB_PASSWORD=secret
 ```
 
+## Requirements
 
-```bash
-php artisan vendor:publish --provider="Encore\Admin\AdminServiceProvider"
-php artisan admin:install
-```
-
-Next.
-
-- See http://localhost
-- Login laravel-admin http://localhost/admin/auth/login
-  - ID: admin
-  - PW: admin
-
-
+- PHP 7.4.33
+- Laravel version	8.83.27
+- laravel-admin 1.8.17
 
 # Memo
 
